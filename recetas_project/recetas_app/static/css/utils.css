@@ -1,0 +1,15 @@
+:root {
+  /* Colores */
+  --color-gradiant-nav-footer: linear-gradient(
+    90deg,
+    rgba(218, 123, 8, 1) 66%,
+    rgba(248, 188, 0, 1) 104%
+  );
+  --color-principal-text: #2e0501;
+  --color-secundary-text: rgba(218, 123, 8, 1);
+  --color-principal-bg: #ffdebb;
+  --color-principal-btn: rgb(138, 78, 5);
+  --color-principal-border: rgba(218, 123, 8, 1);
+  --color-inputs: white;
+  /* Tipografias */
+}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Lista de Recetas {% endblock %}
+
+{% block content %}
+    <section class="recetas">
+
+        {% if user.is_authenticated %}
+            <div class="alert boton-recetas" role="alert">
+                <h1>Bienvenido, {{ user.username }}</h1> 
+            </div>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <div class="text-center mb-4 mt-4">
+                <h2 class="text-center">Lista de Recetas <a href="{% url 'crear_receta' %}" class="btn boton-recetas">Añadir nueva receta</a></h2>
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                No estás autenticado. Regístrate para añadir recetas.
+            </div>
+        {% endif %}
+
+        <div class="container">
+            <div class="row">
+                {% for receta in recetas %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 d-flex flex-column">
+                            {% if receta.imagen %}
+                                <img src="{{ receta.imagen.url }}" class="card-img-top h-100" alt="Imagen de {{ receta.titulo }}" >
+                            {% else %}
+                                <img src="{% static 'img/predeterminado.png' %}"class="card-img-top h-100" alt="Imagen predeterminada" >
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ receta.titulo }}</h5>
+                                
+                                <p class="card-text">{{ receta.descripcion|truncatewords:15 }}</p>
+                                
+                                <div class="d-flex justify-content-center justify-content-md-around align-items-center flex-wrap gap-1">
+                                    <a href="{% url 'detalle_receta' receta.id %}" class="btn boton-recetas mb-2 mb-md-0">Ver más</a>
+                                
+                                    {% if user.is_authenticated and user == receta.autor %}
+                                        <a href="{% url 'editar_receta' receta.id %}" class="btn btn-warning mb-2 mb-md-0">Editar</a>
+                                        <a href="{% url 'eliminar_receta' receta.id %}" class="btn btn-danger mb-2 mb-md-0">Eliminar</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <strong>{{ receta.autor }}</strong>
+                                
+                                <strong class="d-flex align-items-center">
+                                    {% if user.is_authenticated %}
+                                    <form action="{% url 'valorar_receta' receta.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn" style="padding: 0 3px;">
+                                            {% if ya_valorado %}
+                                                ❤️
+                                            {% else %}
+                                                ❤️
+                                            {% endif %}
+                                        </button>
+                                    </form>
+                                    {% else %}
+                                        ❤️
+                                    {% endif %}
+                                    {{ receta.valoraciones.count}}
+                                </strong>
+                                
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info text-center" role="alert">
+                            No hay recetas disponibles.
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

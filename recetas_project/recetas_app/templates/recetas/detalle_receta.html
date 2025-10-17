@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ receta.titulo }}
+{% endblock %}
+
+{% block content %}
+<section class="container my-2">
+    <h1 class="text-center mb-4">{{ receta.titulo }}</h1>
+
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+
+            <!-- Imagen -->
+            {% if receta.imagen %}
+                <div class="card mb-4 shadow-sm">
+                    <img src="{{ receta.imagen.url }}" alt="{{ receta.titulo }}" class="card-img-top rounded">
+                </div>
+            {% else %}
+                <div class="alert alert-secondary text-center" role="alert">
+                    <em>Esta receta no tiene imagen.</em>
+                </div>
+            {% endif %}
+
+            <!-- Detalles de la receta -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Descripción</h5>
+                    <p class="card-text">{{ receta.descripcion | linebreaksbr }}</p>
+
+                    <h5 class="card-title mt-4">Ingredientes</h5>
+                    <p class="card-text">{{ receta.ingredientes | linebreaksbr }}</p>
+
+                    <h5 class="card-title mt-4">Instrucciones</h5>
+                    <p class="card-text">{{ receta.instrucciones | linebreaksbr }}</p>
+
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <h6><i class="bi bi-tag-fill"></i> Categoría:</h6>
+                            <p>{{ receta.categoria }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="bi bi-clock-fill"></i> Tiempo de preparación:</h6>
+                            <p>{{ receta.tiempo_preparacion }} minutos</p>
+                        </div>
+                        <div class="col-12">
+                            <h6><i class="bi bi-person-fill"></i> Creado por:</h6>
+                            <p>{{ receta.autor }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comentarios -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Comentarios</h4>
+
+                    {% for comentario in receta.comentarios.all %}
+                        <div class="mb-3 p-3 bg-light rounded border d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ comentario.usuario.username }}:</strong>
+                                <p class="mb-0">{{ comentario.contenido }}</p>
+                            </div>
+                            {% if comentario.usuario == user %}
+                                <form action="{% url 'eliminar_comentario' comentario.id %}" method="post" class="ms-3">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    {% empty %}
+                        <p class="text-muted">No hay comentarios aún. ¡Sé el primero en comentar!</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Agregar comentario -->
+            <div class="text-center mb-4">
+                {% if user.is_authenticated %}
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#comentarioModal">
+                        Agregar comentario
+                    </button>
+                {% else %}
+                    <p><a href="{% url 'iniciar_sesion' %}" class="btn btn-outline-secondary">Inicia sesión</a> para agregar un comentario.</p>
+                {% endif %}
+            </div>
+
+            <!-- Volver -->
+            <div class="mt-4 d-flex flex-column align-items-center">
+                <a href="{% url 'lista_recetas' %}" class="btn boton-recetas">Volver a la lista de recetas</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Modal de Comentario -->
+{% include '../components/comment/comentario_form.html' %}
+{% endblock %}

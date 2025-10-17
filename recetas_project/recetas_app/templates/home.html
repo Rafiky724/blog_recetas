@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Recetas de Cocina{% endblock %}
+
+{% block content %}
+    <section class="home mt-4">
+        <div class="container content-home-1">
+            <h1 class="display-4 fw-bold mb-4 welcome">¡Bienvenido a <span class="title-page">Recetízate!</span></h1>
+            <p class="lead text-muted mb-4">Descubre, comparte y valora las mejores recetas de cocina, un espacio único donde los amantes de la gastronomía pueden unirse para explorar nuevas ideas y aprender nuevas recetas. Nuestra comunidad está pensada para quienes buscan no solo crear platos deliciosos, sino también disfrutar del proceso de cocinar y compartir con otros su pasión por la cocina. Aquí podrás encontrar una gran variedad de recetas, desde las más tradicionales hasta las más vanguardistas, todas acompañadas de consejos, trucos y recomendaciones para que tu experiencia culinaria sea inolvidable. ¡Únete a nosotros y vive la magia de la cocina, donde cada plato cuenta una historia y cada ingrediente tiene un propósito!</p>
+            <a href="{% url 'lista_recetas' %}" class="btn btn-primary btn-lg mb-4 boton-recetas">Explorar Recetas</a>
+        </div>
+    </section>
+
+    <section class="py-1">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-4 welcome">¿Qué puedes hacer en <span class="title-page">Recetízate</span>?</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow h-100">
+                        <img src="{% static 'img/descubreRecetas.png' %}" class="card-img-top" alt="Descubre recetas">
+                        <div class="card-body color-card">
+                            <h5 class="card-title fw-bold">Descubre recetas</h5>
+                            <p class="card-text text-muted">Explora una amplia variedad de recetas para todas las ocasiones, desde platos principales hasta postres exquisitos.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow h-100">
+                        <img src="{% static 'img/comparteRecetas.png' %}" class="card-img-top" alt="Comparte tus recetas">
+                        <div class="card-body color-card">
+                            <h5 class="card-title fw-bold">Comparte tus recetas</h5>
+                            <p class="card-text text-muted">Sube tus recetas favoritas y compártelas con la comunidad. Inspira a otros a probar tus creaciones.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow h-100">
+                        <img src="{% static 'img/valorarReceta.png' %}" class="card-img-top" alt="Valora recetas">
+                        <div class="card-body color-card">
+                            <h5 class="card-title fw-bold">Valora recetas</h5>
+                            <p class="card-text text-muted">Dale me gusta y comenta tus recetas favoritas. Tu opinión cuenta para toda la comunidad.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-4">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5 welcome">Destacados de la semana</h2>
+            <div id="carouselRecetas" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'img/pastelChocolate.png' %}" class="d-block w-100" alt="Receta destacada 1">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Pastel de Chocolate</h5>
+                            <p>Un postre irresistible para cualquier ocasión.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img/paella.png' %}" class="d-block w-100" alt="Receta destacada 2">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Paella de Mariscos</h5>
+                            <p>Un clásico de la cocina mediterránea.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img/ensaladaCesar.png' %}" class="d-block w-100" alt="Receta destacada 3">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Ensalada César</h5>
+                            <p>Ligera, fresca y deliciosa.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img/pastaAlfredo.png' %}" class="d-block w-100" alt="Receta destacada 4">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Pasta Alfredo</h5>
+                            <p>Un plato cremoso y reconfortante.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img/tacos.png' %}" class="d-block w-100" alt="Receta destacada 5">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Tacos de Carne Asada</h5>
+                            <p>Sabor auténtico y delicioso en cada bocado.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselRecetas" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselRecetas" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    {% if user.is_authenticated %}
+        <section class="py-3">
+            <div class="container text-center welcome">
+                <h2 class="fw-bold mb-4">¡Bienvenido de nuevo, {{ username }}!</h2>
+                <p class="lead text-muted mb-4">Gracias por ser parte de nuestra comunidad. Estamos felices de que sigas con nosotros.</p>
+                <a href="{% url 'lista_recetas' %}" class="btn boton-recetas btn-lg">Revisa la lista de recetas</a>
+            </div>
+        </section> 
+    {% else %}
+        <section class="py-3">
+            <div class="container text-center welcome">
+                <h2 class="fw-bold mb-4">Únete a nuestra comunidad</h2>
+                <p class="lead text-muted mb-4">Regístrate hoy y forma parte de una comunidad vibrante de amantes de la cocina.</p>
+                <a href="{% url 'registro' %}" class="btn boton-recetas btn-lg">Registrarse</a>
+                <a href="{% url 'iniciar_sesion' %}" class="btn btn-lg" style="border: 1px solid var(--color-principal-btn);">Iniciar Sesión</a>
+            </div>
+        </section>
+    {% endif %}
+    
+{% endblock %}

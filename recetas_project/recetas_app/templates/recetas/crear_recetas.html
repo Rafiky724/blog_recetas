@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Crear Receta
+{% endblock %}
+
+{% block content %}
+<section class="container-fluid d-flex justify-content-center align-items-start">
+    <div class="row w-100" style="justify-content: center;">
+        <div class="col-12 col-md-8 col-lg-6 ">
+            <h1 class="text-center mb-4 welcome">Crear Nueva Receta</h1>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="{{ form.titulo.id_for_label }}">Título</label>
+                    {{ form.titulo }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.descripcion.id_for_label }}">Descripción</label>
+                    {{ form.descripcion }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.ingredientes.id_for_label }}">Ingredientes</label>
+                    {{ form.ingredientes }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.instrucciones.id_for_label }}">Instrucciones</label>
+                    {{ form.instrucciones }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.categoria.id_for_label }}">Categoría</label>
+                    {{ form.categoria }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.tiempo_preparacion.id_for_label }}" style="text-align: center;">Tiempo de Preparación (minutos)</label>
+                    {{ form.tiempo_preparacion }}
+                </div>
+                
+                <div class="form-group ">
+                    <label for="{{ form.imagen.id_for_label }}">Imagen</label>
+                    <div >
+                        {% if form.imagen.value %}
+                            <img id="preview" class="card" style="max-width: 300px; cursor: pointer;" src="{{ receta.imagen.url }}" alt="Imagen cargada" onclick="triggerFileInput()"/>
+                        {% else %}
+                            <img id="preview" class="card" style="max-width: 300px; cursor: pointer;" src="{% static 'img/predeterminado.png' %}" alt="Imagen cargada" onclick="triggerFileInput()"/>
+                        {% endif %}
+                        <div style="display: none;">
+                            {{ form.imagen }}
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn boton-recetas">Guardar</button>
+                    <a href="{% url 'lista_recetas' %}" class="btn" style="border: 1px solid var(--color-principal-btn);">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

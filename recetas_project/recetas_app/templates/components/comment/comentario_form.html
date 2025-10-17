@@ -1,0 +1,20 @@
+{% load static %}
+<div class="modal fade" id="comentarioModal" tabindex="-1" aria-labelledby="comentarioModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="comentarioModalLabel">Comenta en "{{ receta.titulo }}"</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'crear_comentario' receta.id %}">
+                    {% csrf_token %}
+                    <div class="form-group mb-4">
+                        {{ form.contenido }}
+                    </div>
+                    <button type="submit" class="btn boton-recetas">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
