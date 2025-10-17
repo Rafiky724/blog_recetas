@@ -1,88 +1,72 @@
-# Guía de Configuración para el Proyecto Django
+# 🥗 Blog de Recetas - Proyecto Django
 
-Este archivo describe los pasos para configurar y ejecutar el proyecto Django.
+Este proyecto es una aplicación web construida con **Django** que permite a los usuarios **añadir, puntuar y comentar recetas**.  
+Cada usuario puede crear su cuenta, compartir sus propias recetas y participar en la comunidad calificando y dejando opiniones sobre las recetas de otros.
 
-## 0. Crear entorno virtual
+---
+
+## ⚙️ 1. Configuración del Entorno
+
+Crea y activa un entorno virtual (recomendado):
 
 ```bash
 python -m venv env
+.\env\Scriptsctivate
 ```
 
-Activar el entorno virtual
+> 💡 En Linux/MacOS: `source env/bin/activate`
 
-```bash
-.\env\Scripts\activate
-```
+---
 
-## 1. Instalación de Dependencias
+## 📦 2. Instalación de Dependencias
 
-Primero, asegúrate de tener `pip` instalado y actualizado. Luego, instala Django utilizando el siguiente comando:
-
-```bash
-pip install django
-```
-
-Genera un archivo `requirements.txt` con las dependencias del proyecto:
-
-```bash
-pip freeze > requirements.txt
-```
-
-Instala las dependencias desde `requirements.txt`:
+Instala las dependencias necesarias del proyecto:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## 2. Configuración del Proyecto Django
-
-Crea un nuevo proyecto Django llamado `Tienda`:
+Si aún no tienes el archivo `requirements.txt`, puedes generarlo con:
 
 ```bash
-django-admin startproject recetas_project
+pip freeze > requirements.txt
 ```
 
-Dentro del proyecto, crea una nueva aplicación llamada `recetas_app`:
+## 🚀 3. Ejecutar el Servidor de Desarrollo
 
-```bash
-django-admin startapp recetas_app
-```
-
-## 3. Migraciones
-
-Realiza las migraciones iniciales del proyecto:
-
-```bash
-python manage.py migrate
-```
-
-Crea las migraciones para la nueva aplicación y actualiza la base de datos:
-
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
-
-## 4. Crear un Superusuario
-
-Crea un superusuario para gestionar el panel de administración de Django:
-
-```bash
-python manage.py createsuperuser
-```
-
-Sigue las instrucciones para proporcionar el nombre de usuario, correo electrónico y contraseña.
-
-## 5. Ejecutar el Servidor de Desarrollo
-
-Finalmente, inicia el servidor de desarrollo para ejecutar el proyecto:
+Inicia el servidor local con:
 
 ```bash
 python manage.py runserver
 ```
 
-Ahora puedes acceder a la aplicación a través de `http://127.0.0.1:8000/` y al panel de administración en `http://127.0.0.1:8000/admin/`.
+Accede al sitio en:  
+👉 `http://127.0.0.1:8000/`  
 
 ---
 
-Asegúrate de tener Python y Django instalados correctamente antes de ejecutar estos comandos. Si encuentras algún problema, revisa los mensajes de error para diagnosticar y solucionar el problema.
+## 🧩 4. Funcionalidades Principales
+
+- 👨‍🍳 **Gestión de Recetas**: los usuarios pueden crear, editar y eliminar sus recetas.  
+- ⭐ **Puntuación**: cada receta puede recibir calificaciones de otros usuarios.  
+- 💬 **Comentarios**: los usuarios pueden dejar opiniones en las recetas.  
+- 🔐 **Autenticación**: registro, inicio y cierre de sesión de usuarios.  
+- 📷 **Multimedia**: soporte para imágenes en las recetas.  
+
+---
+
+## 🧰 5. Tecnologías Utilizadas
+
+- **Python 3.x**
+- **Django 5.x**
+- **SQLite3**
+- **HTML / CSS / Bootstrap** (para la interfaz básica)
+
+---
+
+## 📄 Licencia
+
+Este proyecto es de uso educativo y libre bajo la licencia **MIT**.  
+Puedes modificarlo y distribuirlo libremente con atribución al autor original.
+
+---
